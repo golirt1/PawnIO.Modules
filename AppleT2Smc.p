@@ -97,14 +97,14 @@ bool:is_apple_machine() {
     if (!reg_resolve_imports())
         return false;
 
-    new bios_path[] = "\\Registry\\Machine\\HARDWARE\\DESCRIPTION\\System\\BIOS";
+    new bios_path[] = ''\\Registry\\Machine\\HARDWARE\\DESCRIPTION\\System\\BIOS'';
 
     new manufacturer[64];
     new mfg_len = 0;
-    if (reg_query_sz(bios_path, "SystemManufacturer", manufacturer, sizeof manufacturer, mfg_len) != STATUS_SUCCESS)
+    if (reg_query_sz(bios_path, ''SystemManufacturer'', manufacturer, sizeof manufacturer, mfg_len) != STATUS_SUCCESS)
         return false;
 
-    return str_eq(manufacturer, "Apple Inc.") == 0;
+    return str_eq(manufacturer, ''Apple Inc.'') == 0;
 }
 
 
@@ -309,8 +309,7 @@ NTSTATUS:main() {
     // Read-only, and before anything is mapped: if the firmware does not say
     // Apple, this address is not an SMC and we have no business there.
     if (!is_apple_machine()) {
-        debug_print("AppleT2Smc: not an Apple machine, declining
-");
+        debug_print("AppleT2Smc: not an Apple machine, declining\n");
         return STATUS_NOT_SUPPORTED;
     }
 
